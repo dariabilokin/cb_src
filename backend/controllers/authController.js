@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-const prisma = require('../utils/prisma')
+const prisma = require('../prisma/prisma')
 const { sendResetEmail } = require('../utils/emailService')
 const crypto = require('crypto')
 const { sendVerificationEmail } = require('../utils/emailService')
