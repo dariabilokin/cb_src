@@ -5,8 +5,9 @@ import hero from '../public/hero.svg'
 
 export default function Home() {
   return (
-    <main className="relative flex min-h-screen flex-col w-full bg-slate-300  items-center justify-between p-24 ">
-      <div className=""></div>
+    <>
+      {/* <main className="relative flex min-h-screen flex-col w-full bg-slate-300  items-center justify-between p-24 "> */}
+
       <Grid
         columns="2"
         align="center"
@@ -27,6 +28,6 @@ rounded-l-2xl "
         </Box>
         <LoginForm />
       </Grid>
-    </main>
+    </>
   )
 }

@@ -3,27 +3,49 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model user {
-  id                Int       @id @default(autoincrement())
+  id                String    @id @default(cuid()) @map("_id")
   name              String
-  email             String
+  email             String    @unique
   password          String
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @default(now()) @updatedAt
-  sessions          session[]
   resetToken        String?
   resetTokenExpiry  DateTime?
   isVerified        Boolean   @default(false)
   verificationToken String?
+  sessions          session[]
+  notes             note[]
+}
+
+model note {
+  id        String     @id @default(cuid()) @map("_id")
+  userId    String
+  user      user       @relation(fields: [userId], references: [id])
+  dayOfWeek String
+  date      DateTime
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  noteItems noteItem[]
+}
+
+model noteItem {
+  id        String   @id @default(cuid()) @map("_id")
+  noteId    String
+  note      note     @relation(fields: [noteId], references: [id])
+  content   String
+  order     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model session {
-  id        Int      @id @default(autoincrement())
-  userId    Int
+  id        String   @id @default(cuid()) @map("_id")
+  userId    String
   user      user     @relation(fields: [userId], references: [id])
   token     String
   createdAt DateTime @default(now())
