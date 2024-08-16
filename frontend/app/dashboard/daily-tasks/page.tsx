@@ -1,62 +1,46 @@
 'use client'
 
+import DailyTaskTable from '@/app/components/DailyTaskTable'
+import Layout from '@/app/components/Layout'
+import Selector from '@/app/components/Selector'
 import { useState } from 'react'
 
 const DailyTasks: React.FC = () => {
-  const [selectedWeek, setSelectedWeek] = useState('Week 1')
+  const weeks = [
+    { value: 'Week 1', label: 'Week 1' },
+    { value: 'Week 2', label: 'Week 2' },
+    { value: 'Week 3', label: 'Week 3' },
+  ]
 
-  const weeks = ['Week 1', 'Week 2', 'Week 3', 'Week 4']
   const tasks = [
-    { day: 'Monday', date: '2023-10-01', notes: ['Note 1', 'Note 2'] },
-    { day: 'Tuesday', date: '2023-10-02', notes: ['Note 3'] },
-    { day: 'Wednesday', date: '2023-10-03', notes: ['Note 4', 'Note 5'] },
+    { id: 1, day: 'Monday', date: '2023-10-01', notes: ['Note 1', 'Note 2'] },
+    { id: 2, day: 'Tuesday', date: '2023-10-02', notes: ['Note 3'] },
+    {
+      id: 3,
+      day: 'Wednesday',
+      date: '2023-10-03',
+      notes: ['Note 4', 'Note 5'],
+    },
     // Add more tasks as needed
   ]
 
   return (
-    <div className="block ">
-      <header className="bg-gray-100 flex items-center justify-center h-64">
-        <h1>Daily Reports</h1>
-      </header>
-      <div className="my-5">
-        <label htmlFor="weekSelector">Select Week: </label>
-        <select
-          id="weekSelector"
-          value={selectedWeek}
-          onChange={(e) => setSelectedWeek(e.target.value)}
+    <Layout>
+      <header className=" w-full bg-white items-center justify-center h-32 rounded-xl">
+        <h2
+          className="py-auto my-10 text-5xl text-gray-600  text-center"
+          id="primary-heading"
         >
-          {weeks.map((week) => (
-            <option key={week} value={week}>
-              {week}
-            </option>
-          ))}
-        </select>
+          Daily Tasks
+        </h2>
+      </header>
+      <div className="bg-white w-full h-screen rounded-xl px-4 py-5">
+        <div className="w-1/3 mb-5">
+          <Selector options={weeks} />
+        </div>
+        <DailyTaskTable tasks={tasks} />
       </div>
-      <table border={1} cellPadding="10" cellSpacing="0">
-        <thead>
-          <tr>
-            <th>Day of the Week</th>
-            <th>Date</th>
-            <th>Notes List</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tasks.map((task, index) => (
-            <tr key={index}>
-              <td>{task.day}</td>
-              <td>{task.date}</td>
-              <td>
-                <ul>
-                  {task.notes.map((note, noteIndex) => (
-                    <li key={noteIndex}>{note}</li>
-                  ))}
-                </ul>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    </Layout>
   )
 }
 

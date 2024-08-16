@@ -11,7 +11,7 @@ import { Bars3Icon } from '@heroicons/react/24/outline'
 const SideBarNavigation: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 text-gray-800">
-      <div className="fixed flex flex-col top-0 left-0 w-64 bg-white h-full border-r">
+      <div className="fixed flex flex-col top-0 left-0 bg-white h-full border-r w-1/6">
         <div className="flex flex-row items-center justify-center h-14 border-b">
           {/* <span className="inline-flex justify-center items-center">
             <Bars3Icon className="h-6 w-6 text-gray-800" />
@@ -32,7 +32,7 @@ const SideBarNavigation: React.FC = () => {
             <li>
               <a
                 href="/dashboard"
-                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-gray-600 pr-6"
               >
                 <span className="inline-flex justify-center items-center ml-4">
                   <HomeIcon className="h-5 w-5 text-gray-600" />
@@ -45,7 +45,7 @@ const SideBarNavigation: React.FC = () => {
             <li>
               <a
                 href="#"
-                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-gray-600 pr-6"
               >
                 <span className="inline-flex justify-center items-center ml-4">
                   <CalendarIcon className="h-5 w-5 text-gray-600" />
@@ -61,7 +61,7 @@ const SideBarNavigation: React.FC = () => {
             <li>
               <Link
                 href="/dashboard/daily-tasks"
-                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-gray-600 pr-6"
               >
                 <span className="inline-flex justify-center items-center ml-4">
                   <ClipboardIcon className="h-5 w-5 text-gray-600" />
@@ -82,7 +82,7 @@ const SideBarNavigation: React.FC = () => {
             <li>
               <a
                 href="#"
-                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-gray-600 pr-6"
               >
                 <span className="inline-flex justify-center items-center ml-4">
                   <svg
@@ -108,7 +108,7 @@ const SideBarNavigation: React.FC = () => {
             <li>
               <a
                 href="#"
-                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-gray-600 pr-6"
               >
                 <span className="inline-flex justify-center items-center ml-4">
                   <svg
@@ -140,7 +140,7 @@ const SideBarNavigation: React.FC = () => {
             <li>
               <a
                 href="#"
-                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-gray-600 pr-6"
               >
                 <span className="inline-flex justify-center items-center ml-4">
                   <svg

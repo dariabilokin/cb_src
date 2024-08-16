@@ -1,12 +1,19 @@
 import React from 'react'
+import Layout from '../components/Layout'
 
-const DashboardPage: React.FC = () => {
+const DashboardPage: React.FC = async () => {
   return (
-    // <></>
-    <div className="bg-gray-100">
-      <h1>Dashboard</h1>
-      {/* Add your dashboard components and content here */}
-    </div>
+    <Layout>
+      <header className=" w-full bg-white justify-center text-center h-32 rounded-xl">
+        <h2
+          className="py-auto my-10 text-5xl text-gray-600  text-center"
+          id="primary-heading"
+        >
+          Dashboard
+        </h2>
+      </header>
+      <div className="bg-white w-full h-screen rounded-xl"></div>
+    </Layout>
   )
 }
 

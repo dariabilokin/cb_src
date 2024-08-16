@@ -1,9 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import '@radix-ui/themes/styles.css'
-import { Theme, ThemePanel } from '@radix-ui/themes'
-import SideBarNavigation from './components/ui/SideBarNavigation'
+import SideBarNavigation from './components/SideBarNavigation'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,22 +18,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* <Theme
-          accentColor="cyan"
-          grayColor="slate"
-          panelBackground="translucent"
-          scaling="95%"
-        > */}
-        <aside>
-          <SideBarNavigation />
-        </aside>
-
-        {/* Add your main content component here */}
         <main className=""> {children}</main>
-
-        {/* Add your footer component here */}
         <footer>{/* Footer content */}</footer>
-        {/* </Theme> */}
       </body>
     </html>
   )
