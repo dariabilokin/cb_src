@@ -18,12 +18,16 @@ const Selector: React.FC<{
       }}
       defaultValue={selectedWeek}
     >
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Select Week" />
+      <SelectTrigger className="w-[180px] text-gray-600">
+        <SelectValue className="text-gray-600" placeholder="Select Week" />
       </SelectTrigger>
       <SelectContent>
         {options.map((option, index) => (
-          <SelectItem key={index} value={option.value}>
+          <SelectItem
+            className="text-gray-600"
+            key={index}
+            value={option.value}
+          >
             {option.label}
           </SelectItem>
         ))}
