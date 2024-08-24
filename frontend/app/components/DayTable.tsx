@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/table'
 import React from 'react'
 import { PencilIcon } from '@heroicons/react/24/outline'
+import { CheckCircleIcon } from '@heroicons/react/24/outline'
 import { TrashIcon } from '@heroicons/react/24/outline'
 import { Checkbox } from '@/components/ui/checkbox'
 import { useState } from 'react'
@@ -21,13 +22,13 @@ type DayTableProps = {
 
 const DayTable: React.FC<{ notes: DayTableProps[] }> = ({ notes }) => {
   const [editRowId, setEditRowId] = useState<number | null>(null)
+  const [noteChanging, setNoteChanging] = useState<string | null>('')
+
   return (
-    // <div className="w-full border border-gray-200 rounded-2xl">
     <Table className="border-gray-200">
-      {/* <TableCaption>Your daily tasks</TableCaption> */}
       <TableHeader className="rounded-t-2xl">
         <TableRow>
-          <TableHead className="">Note</TableHead>
+          <TableHead>Note</TableHead>
           <TableHead className="w-1/12"></TableHead>
         </TableRow>
       </TableHeader>
@@ -39,8 +40,10 @@ const DayTable: React.FC<{ notes: DayTableProps[] }> = ({ notes }) => {
                 <input
                   type="text"
                   value={note.note}
-                  onChange={() => {}}
-                  className="w-full"
+                  onChange={(e) => {
+                    setNoteChanging(e.target.value)
+                  }}
+                  className="w-full border-2 border-gray-400 p-2 rounded"
                 />
               </TableCell>
             ) : (
@@ -51,14 +54,25 @@ const DayTable: React.FC<{ notes: DayTableProps[] }> = ({ notes }) => {
 
             <TableCell>
               <div className="flex flex-row w-fit">
-                <button
-                  className="text-gray-400 hover:text-gray-600"
-                  onClick={() => {
-                    setEditRowId(note.id)
-                  }}
-                >
-                  <PencilIcon className="text-gray-400 h-5 w-5" />
-                </button>
+                {editRowId != note.id ? (
+                  <button
+                    className="text-gray-400 hover:text-gray-600"
+                    onClick={() => {
+                      setEditRowId(note.id)
+                    }}
+                  >
+                    <PencilIcon className="text-gray-400 h-5 w-5" />
+                  </button>
+                ) : (
+                  <button
+                    className="text-gray-400 hover:text-gray-600"
+                    onClick={() => {
+                      setEditRowId(null)
+                    }}
+                  >
+                    <CheckCircleIcon className="text-gray-400 h-5 w-5" />
+                  </button>
+                )}
                 <button
                   className="ml-2 text-gray-400 hover:text-gray-600"
                   onClick={() => {}}
@@ -84,7 +98,6 @@ const DayTable: React.FC<{ notes: DayTableProps[] }> = ({ notes }) => {
         </TableRow>
       </TableFooter>
     </Table>
-    // </div>
   )
 }
 

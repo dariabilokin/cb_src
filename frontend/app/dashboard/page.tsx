@@ -31,7 +31,7 @@ const DashboardPage: React.FC = () => {
         </h2>
       </header>
       <div className="flex flex-row gap-x-5 w-full h-screen">
-        <div className="flex flex-col gap-4 bg-white w-[400px] h-fit rounded-xl p-4">
+        <div className="flex flex-col gap-4 bg-white w-full h-fit rounded-xl p-4">
           <div className="border-2 rounded-xl text-bold text-lg p-3">
             Achievement task
           </div>
