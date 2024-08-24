@@ -1,11 +1,11 @@
 'use client'
 
-import DailyTaskTable from '@/app/components/DailyTaskTable'
+import DailyTasks from '@/app/components/DailyTasks'
 import Layout from '@/app/components/Layout'
 import Selector from '@/app/components/Selector'
 import { useState } from 'react'
 
-const DailyTasks: React.FC = () => {
+const DailyTasksComponent: React.FC = () => {
   const weeks = [
     { value: 'Week 1', label: 'Week 1' },
     { value: 'Week 2', label: 'Week 2' },
@@ -34,14 +34,14 @@ const DailyTasks: React.FC = () => {
           Daily Tasks
         </h2>
       </header>
-      <div className="bg-white w-full h-screen rounded-xl px-4 py-5">
+      <div className="bg-white  h-screen rounded-xl px-4 py-5">
         <div className="w-1/3 mb-5">
           <Selector options={weeks} />
         </div>
-        <DailyTaskTable tasks={tasks} />
+        <DailyTasks tasks={tasks} />
       </div>
     </Layout>
   )
 }
 
-export default DailyTasks
+export default DailyTasksComponent
