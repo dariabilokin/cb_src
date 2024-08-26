@@ -38,7 +38,7 @@ const DailyTasksComponent: React.FC = () => {
         <div className="w-1/3 mb-5">
           <Selector options={weeks} />
         </div>
-        <DailyTasks tasks={tasks} />
+        {/* <DailyTasks tasks={tasks} /> */}
       </div>
     </Layout>
   )

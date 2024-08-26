@@ -18,12 +18,14 @@ import { useState } from 'react'
 type DayTableProps = {
   id: number
   note: string
+  order: number
 }
-
 const DayTable: React.FC<{ notes: DayTableProps[] }> = ({ notes }) => {
   const [editRowId, setEditRowId] = useState<number | null>(null)
-  const [noteChanging, setNoteChanging] = useState<string | null>('')
+  const [noteChanging, setNoteChanging] = useState<string>('')
+  const [noteList, setNoteList] = useState<DayTableProps[]>(notes)
 
+  console.log('noteChanging', noteChanging)
   return (
     <Table className="border-gray-200">
       <TableHeader className="rounded-t-2xl">
@@ -33,21 +35,21 @@ const DayTable: React.FC<{ notes: DayTableProps[] }> = ({ notes }) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {notes.map((note, index) => (
-          <TableRow key={index}>
+        {noteList.map((note, index) => (
+          <TableRow key={index} className="h-14">
             {editRowId === note.id ? (
-              <TableCell className="font-medium text-gray-600">
+              <TableCell className="py-0 px-2 font-medium text-gray-600">
                 <input
                   type="text"
-                  value={note.note}
+                  defaultValue={note.note}
                   onChange={(e) => {
                     setNoteChanging(e.target.value)
                   }}
-                  className="w-full border-2 border-gray-400 p-2 rounded"
+                  className="w-full rounded-lg border border-gray-300 p-2"
                 />
               </TableCell>
             ) : (
-              <TableCell className="font-medium text-gray-600">
+              <TableCell className="h-10 font-medium text-gray-600">
                 {note.note}
               </TableCell>
             )}
@@ -68,6 +70,14 @@ const DayTable: React.FC<{ notes: DayTableProps[] }> = ({ notes }) => {
                     className="text-gray-400 hover:text-gray-600"
                     onClick={() => {
                       setEditRowId(null)
+                      setNoteList((prevNotes) => {
+                        const updatedNotes = prevNotes.map((item) =>
+                          item.id === note.id
+                            ? { ...item, note: noteChanging }
+                            : item
+                        )
+                        return updatedNotes.sort((a, b) => a.order - b.order)
+                      })
                     }}
                   >
                     <CheckCircleIcon className="text-gray-400 h-5 w-5" />
@@ -75,7 +85,12 @@ const DayTable: React.FC<{ notes: DayTableProps[] }> = ({ notes }) => {
                 )}
                 <button
                   className="ml-2 text-gray-400 hover:text-gray-600"
-                  onClick={() => {}}
+                  onClick={() => {
+                    console.log('delete button')
+                    setNoteList((prevNotes) =>
+                      prevNotes.filter((item) => item.id !== note.id)
+                    )
+                  }}
                 >
                   <TrashIcon className=" h-5 w-5 " />
                 </button>
@@ -83,14 +98,25 @@ const DayTable: React.FC<{ notes: DayTableProps[] }> = ({ notes }) => {
             </TableCell>
           </TableRow>
         ))}
-        {}
       </TableBody>
       <TableFooter>
         <TableRow>
           <TableCell colSpan={3}>
             <button
               className="w-full text-gray-400"
-              onClick={() => console.log('Add new button')}
+              onClick={() => {
+                console.log('Add new button')
+                const id = Math.floor(Math.random() * 100)
+                setNoteList((prevNotes) => [
+                  ...prevNotes,
+                  {
+                    id: id,
+                    note: '',
+                    order: prevNotes.length,
+                  },
+                ])
+                setEditRowId(id)
+              }}
             >
               + Add new
             </button>

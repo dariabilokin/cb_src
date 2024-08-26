@@ -2,9 +2,16 @@ import { useState } from 'react'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/style.css'
 
-const CalendarSideBar: React.FC = () => {
-  const [selected, setSelected] = useState<Date>()
-
+const CalendarSideBar: React.FC<{
+  selected: Date
+  setSelected: React.Dispatch<React.SetStateAction<Date>>
+}> = ({
+  selected,
+  setSelected,
+}: {
+  selected: Date
+  setSelected: React.Dispatch<React.SetStateAction<Date>>
+}) => {
   return (
     <div className="flex flex-col items-center gap-5 w-fit h-fit bg-white rounded-xl py-5 px-5">
       <DayPicker
