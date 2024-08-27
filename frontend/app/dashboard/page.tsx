@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Layout from '../components/Layout'
 import CalendarSideBar from '../components/CalendarSideBar'
 import DayTable from '../components/DayTable'
+import { format } from 'date-fns'
 
 const DashboardPage: React.FC = () => {
   const notes = [
@@ -43,7 +44,7 @@ const DashboardPage: React.FC = () => {
       </header>
       <div className="flex flex-row gap-x-5 w-full h-screen">
         <div className="flex flex-col gap-4 bg-white w-full h-fit rounded-xl p-4">
-          <h3>{`${new Date(selected).format('dddd, MMMM D, YYYY')}`}</h3>
+          <h3>{`${format(selected, 'dd MMM yyyy')}`}</h3>
           <div className="border-2 rounded-xl text-bold text-lg p-3">
             Achievement task
           </div>
