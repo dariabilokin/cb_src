@@ -1,7 +1,7 @@
 const { body, validationResult } = require('express-validator')
 
 const registerValidation = [
-  body('username').trim().isLength({ min: 3 }).escape(),
+  body('name').trim().isLength({ min: 3 }).escape(),
   body('email').isEmail().normalizeEmail(),
   body('password').isLength({ min: 6 }),
 ]

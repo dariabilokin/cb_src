@@ -2,11 +2,16 @@
 import React, { useState } from 'react'
 
 const CreateAccountForm: React.FC = () => {
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
+  }
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value)
   }
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +27,7 @@ const CreateAccountForm: React.FC = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ name, email, password }),
     })
       .then((res) => {
         if (res.ok) {
@@ -46,6 +51,22 @@ const CreateAccountForm: React.FC = () => {
           <h3 className="text-gray-700 text-lg font-bold mb-2">
             Create account
           </h3>
+        </div>
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="name"
+          >
+            Full Name
+          </label>
+          <input
+            className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight "
+            id="name"
+            type="text"
+            placeholder="Enter your full name"
+            value={name}
+            onChange={handleNameChange}
+          />
         </div>
         <div className="mb-4">
           <label
@@ -79,9 +100,9 @@ const CreateAccountForm: React.FC = () => {
             onChange={handlePasswordChange}
           />
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-center">
           <button
-            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded "
+            className=" bg-gray-200 hover:bg-gray-100 text-gray-800 font-bold tracking-wide py-2 px-4 rounded "
             type="submit"
           >
             Create Account

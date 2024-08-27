@@ -7,10 +7,11 @@ const { sendVerificationEmail } = require('../utils/emailService')
 const AuthController = {
   async register(req, res) {
     try {
-      const { username, email, password } = req.body
+      const { name, email, password } = req.body
+      console.log('req.body', req.body)
 
       // Basic input validation
-      if (!username || !email || !password) {
+      if (!name || !email || !password) {
         return res.status(400).json({ error: 'All fields are required' })
       }
 
@@ -29,13 +30,13 @@ const AuthController = {
       // Create new user
       const newUser = await prisma.user.create({
         data: {
-          username,
+          name,
           email,
           password: hashedPassword,
         },
         select: {
           id: true,
-          username: true,
+          name: true,
           email: true,
         },
       })
@@ -49,7 +50,7 @@ const AuthController = {
       })
     } catch (error) {
       console.error('Registration error:', error)
-      res.status(500).json({ error: 'Internal server error' })
+      res.status(500).json({ error: 'Internal server error' + error })
     }
   },
   async verifyEmail(req, res) {
