@@ -25,6 +25,30 @@ const DayTable: React.FC<{ notes: DayTableProps[] }> = ({ notes }) => {
   const [noteChanging, setNoteChanging] = useState<string>('')
   const [noteList, setNoteList] = useState<DayTableProps[]>(notes)
 
+  const handleSaveNote = async (note: DayTableProps) => {
+    try {
+      const response = await fetch('/api/notes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(note),
+      })
+
+      if (response.ok) {
+        // Assume the server returns the saved note with an ID
+        const savedNote = await response.json()
+        setNoteList((prevNotes) =>
+          prevNotes.map((item) => (item.id === note.id ? savedNote : item))
+        )
+      } else {
+        console.error('Failed to save the note')
+      }
+    } catch (error) {
+      console.error('Error saving note:', error)
+    }
+  }
+
   console.log('noteChanging', noteChanging)
   return (
     <Table className="border-gray-200">

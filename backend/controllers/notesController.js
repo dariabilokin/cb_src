@@ -1,4 +1,4 @@
-const prisma = require('../utils/prisma')
+const prisma = require('../prisma/prisma')
 
 const NoteController = {
   async createNote(req, res) {

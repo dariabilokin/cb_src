@@ -27,6 +27,7 @@ rounded-l-2xl "
           </Box>
           <LoginForm />
         </Grid> */}
+        <LoginForm />
       </div>
     </>
   )
