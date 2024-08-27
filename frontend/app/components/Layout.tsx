@@ -12,7 +12,7 @@ const Layout: React.FC<Props> = ({ children }) => {
         {/* Content area */}
         <div className="col-start-2 col-end-7 ">
           {/* Main content */}
-          <div className="flex flex-1 p-10 h-screen items-stretch overflow-hidden bg-gray-100">
+          <div className="flex flex-1 p-10 h-screen items-stretch overflow-hidden bg-gray-200">
             <main className="flex-1 overflow-y-auto">
               {/* Primary column */}
               <section
