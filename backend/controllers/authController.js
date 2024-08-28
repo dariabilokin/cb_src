@@ -27,6 +27,9 @@ const AuthController = {
       // Hash password
       const hashedPassword = await bcrypt.hash(password, 10)
 
+      // Generate verification token
+      const verificationToken = crypto.randomBytes(32).toString('hex')
+
       // Create new user
       const newUser = await prisma.user.create({
         data: {

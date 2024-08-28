@@ -87,11 +87,12 @@ const DayTable: React.FC<{ notes: DayTableProps[] }> = ({ notes }) => {
                       setEditRowId(note.id)
                     }}
                   >
-                    <PencilIcon className="text-gray-400 h-5 w-5" />
+                    <PencilIcon className="text-gray-400 h-5 w-5 hover:text-gray-600" />
                   </button>
                 ) : (
                   <button
-                    className="text-gray-400 hover:text-gray-600"
+                    className=""
+                    disabled={!noteChanging}
                     onClick={() => {
                       setEditRowId(null)
                       setNoteList((prevNotes) => {
@@ -104,7 +105,7 @@ const DayTable: React.FC<{ notes: DayTableProps[] }> = ({ notes }) => {
                       })
                     }}
                   >
-                    <CheckCircleIcon className="text-gray-400 h-5 w-5" />
+                    <CheckCircleIcon className="text-gray-400 h-5 w-5 hover:text-gray-600" />
                   </button>
                 )}
                 <button
@@ -140,6 +141,7 @@ const DayTable: React.FC<{ notes: DayTableProps[] }> = ({ notes }) => {
                   },
                 ])
                 setEditRowId(id)
+                setNoteChanging('')
               }}
             >
               + Add new
