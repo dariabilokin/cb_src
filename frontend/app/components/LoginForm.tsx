@@ -43,57 +43,73 @@ const LoginForm: React.FC = () => {
   }
   console.log('errors', JSON.stringify(errors))
   return (
-    // <Card className="w-full bg-white m-auto">
-    <form
-      className="flex flex-col space-y-4 px-6 py-5"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <h3>Log in </h3>
-      <fieldset
-        className="flex flex-col justify-start items-start gap-3"
-        name="password"
+    <div className=" h-auto w-[500px]">
+      <form
+        className="bg-white shadow-xl rounded-xl px-4 py-6 mb-4"
+        onSubmit={handleSubmit(onSubmit)}
       >
-        <label>Email address</label>
-        <input
-          {...register('email', { required: true })}
-          type="email"
-          required
-          className="border rounded-md border-gray-300 px-2 py-1 w-full"
-        />
-        {errors.email && <p> Please enter your email.</p>}
-        {errors.email && <p>Please provide a valid email.</p>}
-      </fieldset>
+        <div className="mb-4">
+          <h3 className="text-gray-700 text-lg font-bold mb-2">Log in </h3>
+        </div>
 
-      <fieldset
-        className="flex flex-col justify-start items-start gap-3"
-        name="password"
-      >
-        <label>Password</label>
-        <input
-          type="password"
-          {...register('password', {
-            required: true,
-            // pattern: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/,
-          })}
-          className="border rounded-md border-gray-300 px-2 py-1 w-full"
-        />
-        {errors.email && <p> Please enter a password.</p>}
-        {errors.password && (
-          <p>
-            Please provide a valid password. It should contain at least 1 number
-            and 1 special character.
-          </p>
-        )}
-      </fieldset>
+        <fieldset className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="email"
+          >
+            Email address
+          </label>
+          <input
+            className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight"
+            id="email"
+            {...register('email', { required: true })}
+            type="email"
+            placeholder="Enter your email"
+            required
+          />
+          {errors.email && <p> Please enter your email.</p>}
+          {errors.email && <p>Please provide a valid email.</p>}
+        </fieldset>
 
-      <button type="submit"> Submit</button>
-      {/* <div size="4" orientation="horizontal" /> */}
+        <fieldset className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="email"
+          >
+            Password
+          </label>
+          <input
+            type="password"
+            {...register('password', {
+              required: true,
+              // pattern: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/,
+            })}
+            placeholder="Enter your password"
+            className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight"
+          />
+          {errors.email && <p> Please enter a password.</p>}
+          {errors.password && (
+            <p>
+              Please provide a valid password. It should contain at least 1
+              number and 1 special character.
+            </p>
+          )}
+        </fieldset>
 
-      <div className="text-center">
-        <Link href="/create-account">Click here to register</Link>
-      </div>
-    </form>
-    // </Card>
+        <div className="flex items-center justify-center">
+          <button
+            className=" bg-gray-200 hover:bg-gray-100 text-gray-800 font-bold tracking-wide py-2 px-4 rounded "
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
+
+        <div className="text-gray-800 underline text-center mt-5">
+          <Link href="/create-account">Click here to register</Link>
+        </div>
+      </form>
+    </div>
   )
 }
 

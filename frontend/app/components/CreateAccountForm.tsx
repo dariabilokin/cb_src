@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 import React, { useState } from 'react'
 
 const CreateAccountForm: React.FC = () => {
@@ -47,7 +48,7 @@ const CreateAccountForm: React.FC = () => {
         className="bg-white shadow-xl rounded-xl px-4 py-6 mb-4"
         onSubmit={handleSubmit}
       >
-        <div className="my-4">
+        <div className="mb-4">
           <h3 className="text-gray-700 text-lg font-bold mb-2">
             Create account
           </h3>
@@ -107,6 +108,10 @@ const CreateAccountForm: React.FC = () => {
           >
             Create Account
           </button>
+        </div>
+
+        <div className="text-gray-800 underline text-center mt-5">
+          <Link href="/login">Back to Log in</Link>
         </div>
       </form>
     </div>

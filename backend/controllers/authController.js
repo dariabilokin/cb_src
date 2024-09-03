@@ -36,14 +36,17 @@ const AuthController = {
           name,
           email,
           password: hashedPassword,
+          verificationToken,
         },
         select: {
           id: true,
           name: true,
           email: true,
+          verificationToken: true,
         },
       })
 
+      console.log('newUser', newUser)
       await sendVerificationEmail(email, verificationToken)
 
       res.status(201).json({
@@ -59,11 +62,11 @@ const AuthController = {
   async verifyEmail(req, res) {
     try {
       const { token } = req.params
-
+      console.log('token', token)
       const user = await prisma.user.findFirst({
         where: { verificationToken: token },
       })
-
+      console.log('user', user)
       if (!user) {
         return res.status(400).json({ error: 'Invalid verification token' })
       }
