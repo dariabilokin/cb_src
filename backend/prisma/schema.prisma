@@ -44,10 +44,11 @@ model noteItem {
 }
 
 model session {
-  id        String   @id @default(uuid()) @map("_id")
-  userId    String
-  user      user     @relation(fields: [userId], references: [id])
-  token     String
-  createdAt DateTime @default(now())
-  expiresAt DateTime
+  id           String   @id @default(uuid()) @map("_id")
+  userId       String
+  user         user     @relation(fields: [userId], references: [id])
+  token        String
+  refreshToken String
+  createdAt    DateTime @default(now())
+  expiresAt    DateTime
 }

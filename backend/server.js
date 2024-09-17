@@ -14,7 +14,7 @@ const port = 8000
 // Use the CORS middleware
 app.use(
   cors({
-    origin: 'http://localhost:3002', // Allow requests from this origin
+    origin: 'http://localhost:3000', // Allow requests from this origin
     methods: ['GET', 'POST'], // Specify allowed methods
     credentials: true, // If you need to send cookies or authentication tokens
   })

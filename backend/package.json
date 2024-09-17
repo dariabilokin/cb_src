@@ -19,7 +19,7 @@
     "prisma": "^5.17.0"
   },
   "scripts": {
-    "start": "node ./backend/server.js",
-    "server": "nodemon ./backend/server.js"
+    "start": "npx prisma generate && node server.js",
+    "server": "npx prisma generate && nodemon server.js"
   }
 }

@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 const prisma = require('../prisma/prisma')
+const jwt = require('jsonwebtoken')
 const { sendResetEmail } = require('../utils/emailService')
 const crypto = require('crypto')
 const { sendVerificationEmail } = require('../utils/emailService')
@@ -95,9 +96,12 @@ const AuthController = {
           .status(400)
           .json({ error: 'Email and password are required' })
       }
-
+      console.log('email', email)
       // Find user by email
-      const user = await prisma.user.findUnique({ where: { email } })
+      const user = await prisma.user.findUnique({
+        where: { email },
+      })
+
       if (!user) {
         return res.status(401).json({ error: 'Invalid credentials' })
       }
@@ -112,22 +116,30 @@ const AuthController = {
       if (!isPasswordValid) {
         return res.status(401).json({ error: 'Invalid credentials' })
       }
-
       // Generate JWT token
       const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
         expiresIn: '1h',
       })
+      // Generate JWT token
+      const refreshToken = jwt.sign(
+        { userId: user.id },
+        process.env.JWT_REFRESH_SECRET,
+        {
+          expiresIn: '365d',
+        }
+      )
 
       // Create session
       await prisma.session.create({
         data: {
           token,
+          refreshToken,
           userId: user.id,
           expiresAt: new Date(Date.now() + 3600000), // 1 hour from now
         },
       })
 
-      res.json({ message: 'Login successful', token })
+      res.json({ message: 'Login successful', token, refreshToken })
     } catch (error) {
       console.error('Login error:', error)
       res.status(500).json({ error: 'Internal server error' })
@@ -136,16 +148,16 @@ const AuthController = {
   async logout(req, res) {
     try {
       const { token } = req.body
-
+      console.log('token LOGOUT ', token)
       if (!token) {
         return res.status(400).json({ error: 'Token is required' })
       }
 
       // Remove the session
-      await prisma.session.deleteMany({
-        where: { token },
+      const removedSessions = await prisma.session.deleteMany({
+        where: { token: token },
       })
-
+      console.log('removedSessions', removedSessions)
       res.json({ message: 'Logout successful' })
     } catch (error) {
       console.error('Logout error:', error)
@@ -177,7 +189,20 @@ const AuthController = {
       res.status(500).json({ error: 'Internal server error' })
     }
   },
+  async refreshAuthToken(req, res) {
+    const { refreshToken } = req.body
+    try {
+      const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET)
 
+      const newToken = jwt.sign({ id: decoded.id }, process.env.JWT_SECRET, {
+        expiresIn: '1h',
+      })
+
+      return res.status(200).json({ newToken })
+    } catch (error) {
+      return res.status(401).json({ message: 'Invalid refresh token' })
+    }
+  },
   async resetPassword(req, res) {
     try {
       const { token, newPassword } = req.body

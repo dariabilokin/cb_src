@@ -5,19 +5,32 @@ import {
   CalendarIcon,
   ClipboardIcon,
 } from '@heroicons/react/24/outline'
-
+import { logout } from '../lib/actions'
 import { Bars3Icon } from '@heroicons/react/24/outline'
 
 const SideBarNavigation: React.FC = () => {
+  const handleLogout = async () => {
+    try {
+      await logout()
+      // The logout action will handle the redirect if successful
+    } catch (error) {
+      console.error('Logout failed:', error)
+      // Handle the error, maybe show a notification to the user
+      alert('Logout failed. Please try again.')
+    }
+  }
   return (
     <div className="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 text-gray-800">
-      <div className="fixed flex flex-col top-0 left-0 bg-white h-full border-r w-1/6">
+      <div className="fixed flex flex-col top-0 left-0 bg-white h-full border-r w-[56px] md:w-[150px]">
         <div className="flex flex-row items-center justify-center h-14 border-b">
           {/* <span className="inline-flex justify-center items-center">
             <Bars3Icon className="h-6 w-6 text-gray-800" />
           </span> */}
-          <span className="tracking-wide font-medium mx-auto text-gray-700 text-xl ">
+          <span className="tracking-wide font-medium mx-auto text-gray-700 text-xl hidden md:block">
             Corporate Buddy
+          </span>
+          <span className="tracking-wide font-medium mx-auto text-gray-700 text-xl block md:hidden">
+            CB
           </span>
         </div>
         <div className="overflow-y-auto overflow-x-hidden flex-grow">
@@ -37,7 +50,7 @@ const SideBarNavigation: React.FC = () => {
                 <span className="inline-flex justify-center items-center ml-4">
                   <HomeIcon className="h-5 w-5 text-gray-600" />
                 </span>
-                <span className="ml-2 text-sm tracking-wide truncate">
+                <span className="ml-2 text-sm tracking-wide truncate hidden md:block">
                   Dashboard
                 </span>
               </a>
@@ -50,7 +63,7 @@ const SideBarNavigation: React.FC = () => {
                 <span className="inline-flex justify-center items-center ml-4">
                   <CalendarIcon className="h-5 w-5 text-gray-600" />
                 </span>
-                <span className="ml-2 text-sm tracking-wide truncate">
+                <span className="ml-2 text-sm tracking-wide truncate hidden md:block">
                   Weekly Reports
                 </span>
                 {/* <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">
@@ -66,7 +79,7 @@ const SideBarNavigation: React.FC = () => {
                 <span className="inline-flex justify-center items-center ml-4">
                   <ClipboardIcon className="h-5 w-5 text-gray-600" />
                 </span>
-                <span className="ml-2 text-sm tracking-wide truncate">
+                <span className="ml-2 text-sm tracking-wide truncate hidden md:block">
                   Daily Tasks
                 </span>
               </Link>
@@ -74,7 +87,7 @@ const SideBarNavigation: React.FC = () => {
 
             <li className="px-5">
               <div className="flex flex-row items-center h-8">
-                <div className="text-sm font-light tracking-wide text-gray-500">
+                <div className="text-sm font-light tracking-wide text-gray-500 ">
                   Settings
                 </div>
               </div>
@@ -100,7 +113,7 @@ const SideBarNavigation: React.FC = () => {
                     ></path>
                   </svg>
                 </span>
-                <span className="ml-2 text-sm tracking-wide truncate">
+                <span className="ml-2 text-sm tracking-wide truncate hidden md:block">
                   Profile
                 </span>
               </a>
@@ -132,14 +145,15 @@ const SideBarNavigation: React.FC = () => {
                     ></path>
                   </svg>
                 </span>
-                <span className="ml-2 text-sm tracking-wide truncate">
+                <span className="ml-2 text-sm tracking-wide truncate hidden md:block">
                   Settings
                 </span>
               </a>
             </li>
             <li>
-              <a
-                href="#"
+              <button
+                type="button"
+                onClick={() => handleLogout()}
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-gray-600 pr-6"
               >
                 <span className="inline-flex justify-center items-center ml-4">
@@ -158,10 +172,10 @@ const SideBarNavigation: React.FC = () => {
                     ></path>
                   </svg>
                 </span>
-                <span className="ml-2 text-sm tracking-wide truncate">
+                <span className="ml-2 text-sm tracking-wide truncate hidden md:block">
                   Logout
                 </span>
-              </a>
+              </button>
             </li>
           </ul>
         </div>

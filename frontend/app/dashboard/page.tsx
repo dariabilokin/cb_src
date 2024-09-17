@@ -42,7 +42,7 @@ const DashboardPage: React.FC = () => {
           Dashboard
         </h2>
       </header>
-      <div className="flex flex-row gap-x-5 w-full h-screen">
+      <div className="flex flex-col-reverse md:flex-row gap-5 w-full h-screen">
         <div className="flex flex-col gap-4 bg-white w-full h-fit rounded-xl p-4">
           <h3>{`${format(selected, 'dd MMM yyyy')}`}</h3>
           <div className="border-2 rounded-xl text-bold text-lg p-3">

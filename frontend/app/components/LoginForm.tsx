@@ -1,14 +1,18 @@
 'use client'
 
-import * as React from 'react'
+import React, { useState } from 'react'
 // import * as Form from '@radix-ui/react-form'
 // import { Button, Card, Heading, Link, Separator, Text } from '@radix-ui/themes'
 // import { Label } from '@radix-ui/react-label'
-import Head from 'next/head'
 import { useForm } from 'react-hook-form'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { storeToken } from '../lib/actions'
+
 const LoginForm: React.FC = () => {
-  const [serverErrors, setServerErrors] = React.useState({
+  const router = useRouter()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [serverErrors, setServerErrors] = useState({
     email: false,
     password: false,
   })
@@ -20,28 +24,36 @@ const LoginForm: React.FC = () => {
 
   console.log('URL', process.env.NEXT_PUBLIC_API_URL)
 
-  function onSubmit(data: { [k: string]: FormDataEntryValue }): void {
+  async function onSubmit(data: {
+    [k: string]: FormDataEntryValue
+  }): Promise<void> {
     console.log(data)
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+    setIsSubmitting(true)
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    ).then((res) => {
+      return res.json()
     })
-      .then((res) => {
-        if (res.ok) {
-          console.log('success')
-        } else {
-          console.log('error')
-          setServerErrors({ ...serverErrors, email: true })
-        }
-      })
-      .catch((err) => {
-        console.log('error', err)
-      })
+
+    if (res) {
+      const data = res
+      console.log('success', data)
+      await storeToken(data)
+      router.push('/dashboard')
+    } else {
+      console.log('error')
+      setServerErrors({ ...serverErrors, email: true })
+    }
+    setIsSubmitting(false)
   }
-  console.log('errors', JSON.stringify(errors))
+  console.log('errors', errors)
   return (
     <div className=" h-auto w-[500px]">
       <form
@@ -100,6 +112,7 @@ const LoginForm: React.FC = () => {
           <button
             className=" bg-gray-200 hover:bg-gray-100 text-gray-800 font-bold tracking-wide py-2 px-4 rounded "
             type="submit"
+            disabled={isSubmitting}
           >
             Submit
           </button>
